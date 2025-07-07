@@ -1,22 +1,17 @@
-# scripts/fetch_open_data.py
 
 import pandas as pd
 import requests
 import os
 
-# ✅ Create the 'data' folder if not exists
 os.makedirs('data', exist_ok=True)
 
-# ✅ Public dataset (Premier League 2022–23)
 url = "https://raw.githubusercontent.com/openfootball/football.json/master/2022-23/en.1.json"
 
 response = requests.get(url)
 data = response.json()
 
-# ✅ Extract matches
 matches = data['matches']
 
-# ✅ Parse useful fields
 records = []
 for m in matches:
     record = {
@@ -29,7 +24,6 @@ for m in matches:
     }
     records.append(record)
 
-# ✅ Save to CSV
 df = pd.DataFrame(records)
 df.to_csv('./data/raw_data.csv', index=False)
-print(f"✅ Saved {len(df)} records to data/raw_data.csv")
+print(f" Saved {len(df)} records to data/raw_data.csv")
